@@ -1,0 +1,96 @@
+/*========================== ANIMATIONS ==========================*/
+@keyframes moveBanner {
+    from {
+        opacity: 0;
+        transform: translateY(5rem) rotateY(-30deg);
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes moveBanner-2 {
+    from {
+        opacity: 0;
+        transform: translateX(-10rem);
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: .8;
+    }
+}
+
+@keyframes imageOpacity {
+    from {
+        opacity: 0;
+        transform: scale(0);
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        max-height: 0;
+    }
+
+    to {
+        opacity: 1;
+        max-height: 500px;
+    }
+}
+
+
+/*========================== ANIMATION WHEN SCROLLING ==========================*/
+
+/*========== ALL ==========*/
+.js .js-scroll-toUp,
+.js .js-scroll-toRight,
+.js .js-scroll-toLeft,
+.js .js-scroll-opacity {
+    opacity: 0;
+    transition: all .8s ease-in-out;
+}
+
+/*========== TO UP ==========*/
+.js .js-scroll-toUp {
+    transform: translate3d(0, 5rem, 0) rotateY(-30deg);
+}
+
+.js .js-scroll-toUp.active {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+}
+
+/*========== TO RIGHT ==========*/
+.js .js-scroll-toRight {
+    transform: translate3d(-5rem, 0, 0);
+}
+
+.js .js-scroll-toRight.active {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+}
+
+/*========== TO LEFT ==========*/
+.js .js-scroll-toLeft {
+    transform: translate3d(5rem, 0, 0);
+}
+
+.js .js-scroll-toLeft.active {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+}
+
+/*========== OPACITY ==========*/
+.js .js-scroll-opacity.active {
+    transition-delay: .2s;
+    opacity: 1;
+}

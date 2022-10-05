@@ -1,0 +1,514 @@
+/*========================== IMPORT FONTS ==========================*/
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@400;500;600;700;800&family=Cabin+Sketch&family=Kanit:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400&display=swap');
+
+/*========================== IMPORT VARIABLES, MIXINS AND ANIMATIONS ==========================*/
+@import './variables-and-mixins.scss';
+@import './animations.scss';
+
+/*========================== IMPORT PAGES ==========================*/
+@import './about';
+@import './skills';
+@import './projects';
+@import './contact';
+
+/*========================== THANKS PAGE ==========================*/
+@import './thanks.scss';
+
+/*========================== RESET ==========================*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    font-family: $default-font-family;
+}
+
+a {
+    text-decoration: none;
+}
+
+body {
+    background: $c-white;
+    font-size: $normal-font-size-for-text;
+    -webkit-font-smoothing: antialiased;
+
+    &::-webkit-scrollbar {
+        width: 8px;
+        background: lighten($bg-primary, 2%);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: $c-primary;
+        background: -moz-linear-gradient(to bottom, $c-primary, darken($c-primary, 20%));
+        background: -webkit-linear-gradient(to bottom, $c-primary, darken($c-primary, 20%));
+        background: linear-gradient(to bottom, $c-primary, darken($c-primary, 20%));
+        border-radius: 5px;
+    }
+}
+
+/*========================== HEADER ==========================*/
+.header {
+    width: 100%;
+    height: 80px;
+    position: fixed;
+    top: 0;
+    padding: 0 20px;
+    background: lighten($bg-primary, 2%);
+    border-bottom: 1px solid rgba(114, 114, 126, 0.2);
+    z-index: 1;
+
+    .header-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        height: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .logo a {
+            color: $c-white;
+
+            font: {
+                size: $h3-font-size-for-title;
+                family: $logo-font-family;
+                weight: $bold-font-weight;
+            }
+
+            &::before {
+                content: '<';
+                color: $c-primary;
+            }
+
+            &::after {
+                content: '/>';
+                color: $c-primary;
+            }
+        }
+
+        #btn-menu-mobile {
+            display: none;
+        }
+
+        .ul-menu {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+
+            li:first-child a {
+                background: $c-primary;
+                opacity: 1;
+                padding: 4px 10px;
+                border-radius: 2px;
+
+                &::after {
+                    display: none;
+                }
+            }
+
+            a {
+                font-size: $medium-font-size-for-text;
+                color: $c-white;
+                opacity: .8;
+                transition: all .3s ease-in-out;
+                position: relative;
+
+                &::after {
+                    content: '';
+                    width: 0%;
+                    height: 2px;
+                    background: $c-primary;
+                    position: absolute;
+                    left: 0;
+                    bottom: 0;
+                    transition: all .3s ease-in-out;
+                }
+
+                &:hover {
+                    opacity: 1;
+                }
+
+                &:hover::after {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+
+/*========================== RESPONSIVE HEADER + MENU MOBILE ==========================*/
+@include responsive(tablet) {
+    .header {
+        position: absolute;
+
+        .header-container .ul-menu {
+            display: block;
+            position: absolute;
+            top: 80px;
+            right: 0;
+            width: 100%;
+            height: 0;
+            text-align: center;
+            background: lighten($bg-primary, 2%);
+            z-index: 1000;
+            transition: all .5s ease-in-out;
+            visibility: hidden;
+            overflow-y: hidden;
+
+            li:first-child a {
+                background: none;
+                opacity: .8;
+                width: 100%;
+                padding: 1.25em;
+                border: 0;
+                border-radius: 0;
+                box-shadow: none;
+
+                &:hover {
+                    background: none;
+                    background: -moz-linear-gradient(160deg, transparent, lighten($bg-primary, 5%), transparent);
+                    background: -webkit-linear-gradient(160deg, transparent, lighten($bg-primary, 5%), transparent);
+                    background: linear-gradient(160deg, transparent, lighten($bg-primary, 5%), transparent);
+                    opacity: 1;
+                }
+
+                &::after {
+                    display: block;
+                }
+            }
+        }
+
+        .menu-navigation.active .ul-menu {
+            visibility: visible;
+            height: calc(100vh - 80px);
+            overflow-y: auto;
+        }
+
+        .header-container .menu-navigation a {
+            display: block;
+            padding: 1.25em;
+
+            &:hover {
+                opacity: 1;
+                background: lighten($bg-primary, 5%);
+                background: -moz-linear-gradient(160deg, transparent, lighten($bg-primary, 5%), transparent);
+                background: -webkit-linear-gradient(160deg, transparent, lighten($bg-primary, 5%), transparent);
+                background: linear-gradient(160deg, transparent, lighten($bg-primary, 5%), transparent);
+            }
+
+            &::after {
+                transition: all .5s linear;
+            }
+        }
+
+        .menu-navigation #btn-menu-mobile {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            width: 45px;
+            height: 45px;
+            border: 0;
+            border-radius: 50%;
+            background: $c-primary;
+
+            #menu-hamburguer {
+                color: $c-white;
+                border-top: 3px solid;
+                width: 25px;
+
+                &::before,
+                &::after {
+                    content: '';
+                    display: block;
+                    width: 25px;
+                    height: 3px;
+                    background: currentColor;
+                    margin-top: 6px;
+                    transition: all .5s;
+                    position: relative;
+                }
+            }
+        }
+
+        .menu-navigation.active #btn-menu-mobile #menu-hamburguer {
+            border-top-color: transparent;
+
+            &::before {
+                transform: rotate(135deg);
+            }
+
+            &::after {
+                transform: rotate(-135deg);
+                top: -9px;
+            }
+        }
+    }
+}
+
+@include responsive(mobile-max-height) {
+    .header {
+        height: 60px;
+
+        .header-container .ul-menu {
+            top: 60px;
+        }
+
+        .menu-navigation.active .ul-menu {
+            height: calc(100vh - 60px);
+        }
+    }
+}
+
+/*==========================  HOME ==========================*/
+.main {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    background: $bg-primary;
+    background: -moz-linear-gradient(120deg, $bg-primary, lighten($bg-primary, 5%));
+    background: -webkit-linear-gradient(120deg, $bg-primary, lighten($bg-primary, 5%));
+    background: linear-gradient(120deg, $bg-primary, lighten($bg-primary, 5%));
+    padding: 80px 20px 20px 20px;
+
+    .main-container {
+        width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .sec-content {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+
+            .network-navigation ul {
+                list-style: none;
+
+                li:first-child a {
+                    animation: moveBanner-2 1s .2s forwards;
+                }
+
+                li:last-child a {
+                    animation: moveBanner-2 1s .6s forwards;
+                }
+
+                li a {
+                    color: $c-white;
+                    display: block;
+                    padding: 15px 20px;
+                    text-align: center;
+                    border-radius: 2px;
+                    font-size: $medium-font-size-for-text;
+                    opacity: 0;
+                    transition: all .3s ease-in-out;
+                    animation: moveBanner-2 1s .4s forwards;
+
+                    &:hover {
+                        opacity: 1 !important;
+                        background: $c-primary;
+                    }
+                }
+            }
+
+            .content {
+                max-width: 400px;
+
+                h1 {
+                    color: $c-white;
+                    animation: moveBanner 1s .2s forwards;
+                    opacity: 0;
+
+                    font: {
+                        size: $big-font-size-for-title;
+                        weight: $medium-font-weight;
+                    }
+
+                    &::after {
+                        content: '\1F44B';
+                        font-size: .92em;
+                    }
+                }
+
+                strong {
+                    color: $c-weak-white;
+                    display: block;
+                    margin-bottom: 15px;
+                    opacity: 0;
+                    animation: moveBanner 1s .4s forwards;
+
+                    font: {
+                        size: $big-font-size-for-text;
+                        weight: $medium-font-weight;
+                    }
+                }
+
+                p {
+                    max-width: 380px;
+                    color: $c-weak-white;
+                    font-size: $medium-font-size-for-text;
+                    font-weight: $smaller-font-weight;
+                    opacity: 0;
+                    animation: moveBanner 1s .6s forwards;
+                }
+
+                a {
+                    display: block;
+                    max-width: 150px;
+                    height: 50px;
+                    text-align: center;
+                    line-height: 50px;
+                    border-radius: 2px;
+                    font-size: $medium-font-size-for-text;
+                    color: $c-white;
+                    background: $c-primary;
+                    background: -webkit-linear-gradient(to right, $c-primary, darken($c-primary, 20%));
+                    background: -moz-linear-gradient(to right, $c-primary, darken($c-primary, 20%));
+                    background: linear-gradient(to right, $c-primary, darken($c-primary, 20%));
+                    margin-top: 40px;
+                    transition: all .5s ease-in-out;
+                    opacity: 0;
+                    animation: moveBanner 1s .8s forwards;
+
+                    &:hover {
+                        max-width: 180px;
+                    }
+
+                    i {
+                        margin-left: 10px;
+                    }
+                }
+            }
+        }
+
+        .isometric {
+            background: none;
+            background: -moz-linear-gradient(to top, #251554, transparent 50%);
+            background: -webkit-linear-gradient(to top, #251554, transparent 50%);
+            background: linear-gradient(to top, #251554, transparent 50%);
+            border-bottom-left-radius: 50%;
+            border-bottom-right-radius: 50%;
+            opacity: 0;
+            animation: imageOpacity 1.5s .2s forwards;
+
+            img {
+                width: 240px;
+                padding: 0 10px 20px 10px;
+            }
+        }
+    }
+}
+
+/*========================== RESPONSIVE HOME ==========================*/
+@include responsive(tablet) {
+
+    .main .main-container .isometric,
+    .network-navigation {
+        display: none;
+    }
+
+    .main .main-container .sec-content .content h1 {
+        font-size: $h1-font-size-for-title;
+    }
+}
+
+@include responsive(mobile-1) {
+    .main .main-container .sec-content .content {
+        max-width: 300px;
+
+        h1 {
+            font-size: 1.85em;
+        }
+
+        strong,
+        p,
+        a {
+            font-size: $normal-font-size-for-text;
+        }
+    }
+}
+
+@include responsive(mobile-max-height) {
+    .main {
+        height: 100%;
+        padding: 80px 20px;
+    }
+}
+
+@include responsive(mobile-3) {
+    .main .main-container .sec-content .content {
+        max-width: 220px;
+
+        h1::after {
+            display: none;
+        }
+    }
+}
+
+/*========================== FOOTER ==========================*/
+.footer {
+    width: 100%;
+    height: 120px;
+    background: $bg-primary;
+    padding: 0 20px;
+
+    .footer-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        height: 100%;
+        border-top: 1px solid rgba(114, 114, 126, 0.2);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        div {
+            p:first-child {
+                text-decoration: line-through;
+            }
+        }
+
+        p {
+            font-size: $medium-font-size-for-text;
+            color: $c-weak-white;
+            line-height: 1.3;
+
+            a {
+                color: $c-white;
+
+                font: {
+                    family: $logo-font-family;
+                    weight: $bold-font-weight;
+                }
+
+                &::before {
+                    content: '<';
+                    color: $c-primary;
+                }
+
+                &::after {
+                    content: '/>';
+                    color: $c-primary;
+                }
+            }
+        }
+    }
+}
+
+/*========================== RESPONSIVE FOOTER ==========================*/
+@include responsive(tablet) {
+    .footer {
+        height: 150px;
+    }
+
+    .footer .footer-container {
+        flex-direction: column;
+        justify-content: center;
+        gap: 30px;
+
+        div {
+            text-align: center;
+        }
+    }
+}
