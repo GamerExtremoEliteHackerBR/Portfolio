@@ -17,7 +17,7 @@ Here are some ideas to get you started:
 ### Hi there 👋
 -->
 <!--
-Adicionei este .md via upload posteriormente após ativar a GitPages
+
 -->
 
 
